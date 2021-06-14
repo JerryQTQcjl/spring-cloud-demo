@@ -1,0 +1,40 @@
+spring:
+  application:
+    name: user-service
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:7001/eureka/
+    #每30s拉去一次服务列表
+    registry-fetch-interval-seconds: 30
+  instance:
+    instance-id: ${spring.application.name}:${eureka.instance.hostname}:${server.port}
+    hostname: 127.0.0.1
+    #每30s发送一次心跳续约
+    lease-renewal-interval-in-seconds: 30
+    #90s内没有心跳，则注册中心将剔除服务
+    lease-expiration-duration-in-seconds: 90
+
+
+#ribbon 局部配置，优先级第二
+payment-service:
+  ribbon:
+    #负载均衡规则
+    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.BestAvailableRule
+    # 连接超时时间，单位毫秒
+    ConnectTimeout: 1000
+    # 请求超时时间，单位毫秒
+    ReadTimeout: 3000
+    # 最大连接数
+    MaxTotalHttpConnections: 500
+    # 每个服务提供者的最大连接数
+    MaxConnectionsPerHost: 100
+    # 是否所有操作都重试
+    OkToRetryONAllOperations: false
+    # 重试其他实例的最大重试次数，不包括首次所选的server
+    MaxAutoRetriesNextServer: 2
+    # 同一实例的最大重试次数，不包括首次调用
+    MaxAutoRetries : 1

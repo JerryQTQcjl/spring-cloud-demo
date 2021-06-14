@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: payment-service
+
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:7001/eureka/
+    # 每隔多久拉取⼀次服务列表
+    registry-fetch-interval-seconds: 30
+  instance:
+    hostname: 127.0.0.1
+    instance-id: ${spring.application.name}:${eureka.instance.hostname}:${server.port}
+    # 租约续约间隔时间，默认30秒
+    lease-renewal-interval-in-seconds: 30
+    # 租约到期，服务时效时间，默认值90秒,服务超过90秒没有发⽣⼼跳，EurekaServer会将服务从列表移除
+    lease-expiration-duration-in-seconds: 90

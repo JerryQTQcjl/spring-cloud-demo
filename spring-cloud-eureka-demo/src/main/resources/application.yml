@@ -1,0 +1,31 @@
+#server:
+#  port: 7002
+
+spring:
+  application:
+    name: eureka-server
+
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: false
+    service-url:
+      defaultZone: http://localhost:7001/eureka/,http://localhost:7002/eureka/,http://localhost:7003/eureka/
+  instance:
+    instance-id: ${spring.application.name}:${eureka.instance.hostname}:${server.port}
+    hostname: 127.0.0.1
+
+  #关闭安全保护（自我安全保护：服务没有心跳还会保存一段时间，不会立马移除）
+  server:
+    #    enable-self-preservation: false
+    #自我保护模式，当出现网络分区故障、频繁的开启关闭客户端、eureka在短时间内丢失过多客户端时，会进入自我保护模式，即一个服务长时间没有发送心跳，eureka也不会将其删除，默认为true
+    enable-self-preservation: true
+    #eureka server清理无效节点的时间间隔，默认60000毫秒，即60秒
+    eviction-interval-timer-in-ms: 60000
+    #阈值更新的时间间隔，单位为毫秒，默认为15 * 60 * 1000
+    renewal-threshold-update-interval-ms: 900000
+    #阈值因子，默认是0.85，如果阈值比最小值大，则自我保护模式开启
+    renewal-percent-threshold: 0.85
+    #清理任务程序被唤醒的时间间隔，清理过期的增量信息，单位为毫秒，默认为30 * 1000
+    delta-retention-timer-interval-in-ms: 30000
