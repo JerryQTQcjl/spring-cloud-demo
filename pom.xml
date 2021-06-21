@@ -4,6 +4,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.2.12.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
     <groupId>org.example</groupId>
     <artifactId>spring-cloud-demo</artifactId>
     <packaging>pom</packaging>
@@ -15,6 +21,8 @@
         <module>spring-cloud-record-service</module>
         <module>spring-cloud-hystrix-dashboard-demo</module>
         <module>spring-cloud-gateway-demo</module>
+        <module>spring-cloud-config-server-demo</module>
+        <module>spring-cloud-sleuth-demo</module>
     </modules>
 
     <properties>
@@ -34,13 +42,13 @@
                 <type>pom</type>
             </dependency>
 
-            <dependency>
+            <!--<dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
                 <version>${spring.boot.version}</version>
                 <scope>import</scope>
                 <type>pom</type>
-            </dependency>
+            </dependency>-->
 
         </dependencies>
 
@@ -76,7 +84,15 @@
             <version>${hutool.version}</version>
         </dependency>
 
-
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

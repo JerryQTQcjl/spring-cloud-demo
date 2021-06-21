@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: gateway-service
+
+  cloud:
+    gateway:
+      routes:
+        - id: record-service
+          uri: http://localhost:7021
+          predicates:
+            - Path=/record/**
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:7001/eureka
+  instance:
+    instance-id: ${spring.application.name}:${eureka.instance.hostname}:${server.port}
+    hostname: 127.0.0.1

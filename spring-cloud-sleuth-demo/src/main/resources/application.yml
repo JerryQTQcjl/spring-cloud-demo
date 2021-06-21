@@ -1,0 +1,6 @@
+server:
+  port: 7051
+
+spring:
+  application:
+    name: sleuth-server
