@@ -19,7 +19,7 @@ public class TestController implements ApplicationContextAware {
 
     @GetMapping("test")
     public String test() {
-        return "jenkins 测试1";
+        return "jenkins 测试 dev tag v1.1";
     }
 
     @GetMapping("shutdown")
